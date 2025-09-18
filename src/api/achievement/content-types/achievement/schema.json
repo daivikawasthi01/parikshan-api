@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "achievements",
+  "info": {
+    "singularName": "achievement",
+    "pluralName": "achievements",
+    "displayName": "Achievement"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ipfsHash": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "ipfsUrl": {
+      "type": "string",
+      "required": true
+    },
+    "studentId": {
+      "type": "string",
+      "required": true
+    },
+    "score": {
+      "type": "decimal",
+      "required": true,
+      "min": 0,
+      "max": 10
+    },
+    "authenticScore": {
+      "type": "decimal",
+      "min": 0,
+      "max": 10
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "academic",
+        "competition",
+        "certification",
+        "extracurricular",
+        "research",
+        "leadership",
+        "community",
+        "internship",
+        "other"
+      ]
+    }
+  }
+}
