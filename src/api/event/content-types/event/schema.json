@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "DateTime": {
+      "type": "datetime"
+    },
+    "Venue": {
+      "type": "string"
+    },
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "Hackathon",
+        "Cultural",
+        "Workshops",
+        "Coding",
+        "Other"
+      ]
+    },
+    "Attendees": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::student.student"
+    },
+    "Winners": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::student.student"
+    },
+    "Registered": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::student.student"
+    }
+  }
+}

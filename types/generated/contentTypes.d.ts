@@ -435,6 +435,40 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiEventEvent extends Struct.CollectionTypeSchema {
+  collectionName: 'events';
+  info: {
+    displayName: 'Event';
+    pluralName: 'events';
+    singularName: 'event';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Attendees: Schema.Attribute.Relation<'oneToMany', 'api::student.student'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    DateTime: Schema.Attribute.DateTime;
+    Description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Registered: Schema.Attribute.Relation<'oneToMany', 'api::student.student'>;
+    Title: Schema.Attribute.String;
+    Type: Schema.Attribute.Enumeration<
+      ['Hackathon', 'Cultural', 'Workshops', 'Coding', 'Other']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Venue: Schema.Attribute.String;
+    Winners: Schema.Attribute.Relation<'oneToMany', 'api::student.student'>;
+  };
+}
+
 export interface ApiSemesterSemester extends Struct.CollectionTypeSchema {
   collectionName: 'semesters';
   info: {
@@ -1121,6 +1155,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::achievement.achievement': ApiAchievementAchievement;
+      'api::event.event': ApiEventEvent;
       'api::semester.semester': ApiSemesterSemester;
       'api::student.student': ApiStudentStudent;
       'api::university.university': ApiUniversityUniversity;
