@@ -17,21 +17,6 @@
       "targetField": "users_permissions_user",
       "required": true
     },
-    "CGPA": {
-      "type": "decimal",
-      "min": 0,
-      "max": 10
-    },
-    "semester": {
-      "type": "integer",
-      "min": 1,
-      "max": 12
-    },
-    "year": {
-      "type": "enumeration",
-      "enum": ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"],
-      "default": "Freshman"
-    },
     "department": {
       "type": "string"
     },
@@ -40,11 +25,6 @@
     },
     "expectedGraduation": {
       "type": "date"
-    },
-    "status": {
-      "type": "enumeration",
-      "enum": ["Active", "Inactive", "Suspended", "Graduated", "Dropped"],
-      "default": "Active"
     },
     "phoneNumber": {
       "type": "string"
@@ -63,6 +43,12 @@
       "relation": "manyToOne",
       "target": "api::university.university",
       "inversedBy": "students"
+    },
+    "semesters": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::semester.semester",
+      "mappedBy": "student"
     }
   }
 }

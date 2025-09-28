@@ -37,13 +37,11 @@ export default factories.createCoreController(
           email,
           password,
           department,
-          year,
-          semester,
-          CGPA,
           phoneNumber,
           enrollmentDate,
           expectedGraduation,
           address,
+          initialSemester
         } = ctx.request.body;
 
         // Validate required fields
@@ -93,9 +91,6 @@ export default factories.createCoreController(
           university: universityId,
           studentId: username, // or generate a unique studentId if needed
           ...(department && { department }),
-          ...(year && { year }),
-          ...(semester && { semester }),
-          ...(CGPA && { CGPA }),
           ...(phoneNumber && { phoneNumber }),
           ...(enrollmentDate && { enrollmentDate }),
           ...(expectedGraduation && { expectedGraduation }),
@@ -110,6 +105,30 @@ export default factories.createCoreController(
           }
         );
 
+        // Create initial semester if provided
+        let initialSemesterRecord = null;
+        if (initialSemester) {
+          try {
+            initialSemesterRecord = await strapi.entityService.create(
+              "api::semester.semester",
+              {
+                data: {
+                  student: newStudent.id,
+                  semesterNumber: initialSemester.semesterNumber || 1,
+                  academicYear: initialSemester.academicYear || new Date().getFullYear().toString(),
+                  semesterType: initialSemester.semesterType || "Fall",
+                  isCurrentSemester: true,
+                  
+                  ...initialSemester
+                },
+                populate: ["student"]
+              }
+            );
+          } catch (semesterError) {
+            console.warn('Failed to create initial semester:', semesterError);
+          }
+        }
+
         return ctx.send({
           success: true,
           message: "Student created successfully",
@@ -123,6 +142,7 @@ export default factories.createCoreController(
               provider: "local",
             },
             student: newStudent,
+            initialSemester: initialSemesterRecord,
           },
         });
       } catch (error) {

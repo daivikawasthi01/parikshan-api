@@ -91,6 +91,10 @@
       "relation": "oneToMany",
       "target": "api::student.student",
       "mappedBy": "university"
+    },
+    "notificationHashes": {
+      "type": "json",
+      "default": []
     }
   }
 }
