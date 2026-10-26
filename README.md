@@ -1,57 +1,48 @@
-# 🚀 Getting started with Strapi
+# Parikshan API
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+Backend API for **Parikshan**, a university student-records and achievement-verification platform. It is built on [Strapi 5](https://strapi.io/) (a headless CMS/backend framework) and exposes content APIs for universities, students, academic semesters, campus events, and verified achievements. It likely pairs with a separate Parikshan frontend.
 
-### `develop`
+## Features
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+- **University management** — university profiles with contact info, departments, courses offered, and student capacity.
+- **Student records** — student profiles linked to a university and to the built-in Users & Permissions plugin for authentication.
+- **Semester tracking** — per-student semester records with GPA, total credits, course lists, and current-semester flag.
+- **Event management** — campus events (hackathons, cultural events, workshops, coding contests) with relations to attendees, registrants, and winners.
+- **Achievement verification** — achievement records that store an IPFS hash/URL, a score, and an "authentic score," suggesting tamper-evident verification of student achievements.
+- **Role-based auth** — extends Strapi's Users & Permissions plugin with a custom `user-validation` middleware.
+- **Auto-generated REST/GraphQL-ready content APIs** and an admin panel, courtesy of Strapi.
 
-```
-npm run develop
-# or
-yarn develop
-```
+## Tech Stack
 
-### `start`
+- **Strapi 5** (Node.js headless CMS/backend framework) with **TypeScript**
+- **PostgreSQL** (`pg` driver) as the database
+- **React** (for the Strapi admin panel customizations)
+- pnpm as the package manager
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+## Getting Started
 
-```
-npm run start
-# or
-yarn start
-```
+### Prerequisites
 
-### `build`
+- Node.js `>=18.0.0 <=22.x.x`
+- npm `>=6.0.0` (or pnpm, which the project is configured to use)
+- A PostgreSQL database
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+### Installation
 
-```
-npm run build
-# or
-yarn build
-```
-
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-```
-yarn strapi deploy
+```bash
+git clone https://github.com/daivikawasthi01/parikshan-api.git
+cd parikshan-api
+npm install   # or: pnpm install
 ```
 
-## 📚 Learn more
+Copy `.env.example` to `.env` and fill in the required secrets (`APP_KEYS`, `API_TOKEN_SALT`, `ADMIN_JWT_SECRET`, `TRANSFER_TOKEN_SALT`, `JWT_SECRET`, `ENCRYPTION_KEY`) plus your database connection details.
 
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
+### Usage
 
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
+```bash
+npm run develop   # start Strapi with autoReload and open the admin panel
+npm run start     # start Strapi in production mode
+npm run build     # build the admin panel
+```
 
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
+The admin panel is available at `http://localhost:1337/admin` once the server is running.
